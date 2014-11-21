@@ -13,7 +13,7 @@
 #' 
 #' @return data frame
 #' 
-#' @examples getTrends(query = "test me", country = "United Kingdom", \cr region = "England", date = "last 30 days")
+#' @examples getTrends(query = "test me", country = "United Kingdom", region = "England", date = "last 30 days")
 #' 
 #' @export
 
