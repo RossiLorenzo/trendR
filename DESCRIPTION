@@ -5,5 +5,6 @@ Version: 1.0
 Date: 2014-11-21
 Author: Lorenzo Rossi
 Maintainer: Lorenzo Rossi <lorereds@gmail.com>
-Description: Connects to Google Trends data and download the results obtained. The Google Trend output is then reshaped and saved into a R dataframe
+Description: Connects to Google Trends data and download the results obtained.
+    The Google Trend output is then reshaped and saved into a R dataframe
 License: Apache License

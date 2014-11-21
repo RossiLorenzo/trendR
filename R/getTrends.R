@@ -11,6 +11,10 @@
 #' 
 #' @param date The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'
 #' 
+#' @return data frame
+#' 
+#' @examples getTrends(query = "test me", country = "United Kingdom", \cr region = "England", date = "last 30 days")
+#' 
 #' @export
 
 getTrends = function(query, country = "all", region = "none", date = "all"){
