@@ -5,7 +5,7 @@ Version: 1.0
 Date: 2014-11-21
 Author: Lorenzo Rossi <lorereds@gmail.com>
 Maintainer: Lorenzo Rossi <lorereds@gmail.com>
-Depends:
+Imports:
     RCurl,
     stringr,
     dplyr,
