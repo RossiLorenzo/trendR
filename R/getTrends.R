@@ -19,11 +19,11 @@
 
 getTrends = function(query, country = "all", region = "none", date = "all"){
   #Libraries
-  library(httr)
-  library(RCurl)
-  library(stringr)
-  library(dplyr)
-  load("data/Google_Trends_Data.RData")
+  library(httr, quietly = TRUE)
+  library(RCurl, quietly = TRUE)
+  library(stringr, quietly = TRUE)
+  library(dplyr, quietly = TRUE)
+  data(Google_Trends_Data)
   
   #Make all lower case to reduce error rate
   country = tolower(country)

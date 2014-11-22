@@ -21,6 +21,6 @@ data frame
 This function scrapes Google Trends and returns the results nicely formatted in a R dataframe
 }
 \examples{
-getTrends(query = "test me", country = "United Kingdom", \\cr region = "England", date = "last 30 days")
+getTrends(query = "test me", country = "United Kingdom", region = "England", date = "last 30 days")
 }
 
