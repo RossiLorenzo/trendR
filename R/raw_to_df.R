@@ -30,6 +30,8 @@ raw_to_df = function(html_results){
     }
     return(list(value, date))
   })
+  if(length(all_info) == 0)
+    stop("Google Trends returns 'Not enough search volume to show graphs' error")
   all_values = unlist(sapply(all_info, "[[", 1))
   all_dates = as.Date(unlist(sapply(all_info, "[[", 2)), origin = "1970-01-01")
   

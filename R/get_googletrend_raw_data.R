@@ -13,7 +13,7 @@ get_googletrend_raw_data = function(query, geo, date){
       my_url = paste0(my_url, "&geo=", curlEscape(geo))
   
   #Go to results page
-  message(paste0("Downloading data from: ",my_url))
+#   message(paste0("Downloading data from: ",my_url))
   results = GET(my_url, add_headers("Cookie" = "PREF=Fake_Cookie"))
   html_results = content(results, "text")
   
