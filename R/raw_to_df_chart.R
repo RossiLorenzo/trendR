@@ -1,5 +1,8 @@
 raw_to_df_chart = function(chartData){
-  chartData2 = str_split(chartData, "\\[\\[")[[1]]
+  chartData2 = str_split(chartData, "\\[\\[")
+  if(length(chartData2) == 0)
+    stop("Google Trends returns 'Not enough search volume to show graphs'")  
+  chartData2 =chartData2[[1]]
   #chartData
   chartData2 = chartData2[2]
   chartData2 = gsub("\\]\\].*", "", chartData2)
