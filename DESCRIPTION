@@ -1,4 +1,4 @@
-Package: GTrendsToR
+Package: trendR
 Type: Package
 Title: Download and reshape Google Trends data
 Version: 1.0
