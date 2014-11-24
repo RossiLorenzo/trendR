@@ -15,7 +15,7 @@ getTrends(query, country = "all", region = "none", date = "all")
 \item{date}{The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'}
 }
 \value{
-data frame
+The output is a list. This list contains the trend, the geographical segmentation (countries and cities), the suggested categories for the keyword and the related searches
 }
 \description{
 This function scrapes Google Trends and returns the results nicely formatted in a R dataframe

@@ -11,7 +11,7 @@
 #' 
 #' @param date The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'
 #' 
-#' @return data frame
+#' @return The output is a list. This list contains the trend, the geographical segmentation (countries and cities), the suggested categories for the keyword and the related searches
 #' 
 #' @examples getTrends(query = "test me", country = "United Kingdom", region = "England", date = "last 30 days")
 #' 
@@ -27,7 +27,7 @@ getTrends = function(query, country = "all", region = "none", date = "all"){
   library(rjson, quietly = TRUE)
   data(Google_Trends_Data)
   
-  #Make all lower case to reduce error rate
+  #Make all lower case to reduce errors
   country = tolower(country)
   region = tolower(region)
   date = tolower(date)
@@ -56,10 +56,10 @@ getTrends = function(query, country = "all", region = "none", date = "all"){
   else
     date = right_date$id
   
-  #Get raw data
+  #Scrape raw data
   html_results = get_googletrend_raw_data(query, geo, date)
   parsed_results = content(html_results)
-  #Get all scripts (where data live)
+    #Get all scripts (where data live)
   all_scripts = getNodeSet(parsed_results, "//script")
   all_scripts = vapply(all_scripts, xmlValue, FUN.VALUE = character(1))
   
@@ -72,11 +72,17 @@ getTrends = function(query, country = "all", region = "none", date = "all"){
   mapData = suppressWarnings(raw_to_df_map(mapData))
   
   #Suggested categories
-  suggested = getNodeSet(parsed_results, "//div[@class = 'category-suggest-item']")
-  suggested = vapply(suggested, xmlValue, FUN.VALUE = character(1))
-  suggested = str_trim(gsub("\n", "", suggested))
+  suggested = raw_to_sug_cat(parsed_results)
   
+  #Other search terms
+  related = raw_to_rel_search(parsed_results)
+
   #Return output
-  return(list(trend = chartData, country = mapData$country, city = mapData$city, sug_cat = suggested))
+  return(
+    list(trend = chartData, 
+         country = mapData$country, 
+         city = mapData$city, 
+         sug_cat = suggested,
+         rel_searches = related))
 }
 
