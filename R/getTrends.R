@@ -58,16 +58,25 @@ getTrends = function(query, country = "all", region = "none", date = "all"){
   
   #Get raw data
   html_results = get_googletrend_raw_data(query, geo, date)
+  parsed_results = content(html_results)
+  #Get all scripts (where data live)
+  all_scripts = getNodeSet(parsed_results, "//script")
+  all_scripts = vapply(all_scripts, xmlValue, FUN.VALUE = character(1))
   
   #Chart data
-  chartData = Filter(function(x) grepl("chartData", x), html_results)
+  chartData = Filter(function(x) grepl("chartData", x), all_scripts)
   chartData = suppressWarnings(raw_to_df_chart(chartData))
   
   #Map data
-  mapData = Filter(function(x) grepl("gvizGeoMap", x), html_results)
+  mapData = Filter(function(x) grepl("gvizGeoMap", x), all_scripts)
   mapData = suppressWarnings(raw_to_df_map(mapData))
   
+  #Suggested categories
+  suggested = getNodeSet(parsed_results, "//div[@class = 'category-suggest-item']")
+  suggested = vapply(suggested, xmlValue, FUN.VALUE = character(1))
+  suggested = str_trim(gsub("\n", "", suggested))
+  
   #Return output
-  return(list(trend = chartData, country = mapData$country, city = mapData$city))
+  return(list(trend = chartData, country = mapData$country, city = mapData$city, sug_cat = suggested))
 }
 

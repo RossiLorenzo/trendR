@@ -15,10 +15,6 @@ get_googletrend_raw_data = function(query, geo, date){
   #Go to results page
   main_page = GET(my_url, add_headers("Cookie" = "PREF=Fake_Cookie"))
   
-  #Get all scripts (where data live)
-  all_scripts = getNodeSet(content(main_page), "//script")
-  all_scripts = vapply(all_scripts, xmlValue, FUN.VALUE = character(1))
-  
   #Return raw results
-  return(all_scripts)
+  return(main_page)
 }
