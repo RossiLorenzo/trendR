@@ -21,8 +21,10 @@ getTrends = function(query, country = "all", region = "none", date = "all"){
   #Libraries
   library(httr, quietly = TRUE)
   library(RCurl, quietly = TRUE)
+  library(XML, quietly = TRUE)
   library(stringr, quietly = TRUE)
   library(dplyr, quietly = TRUE)
+  library(rjson, quietly = TRUE)
   data(Google_Trends_Data)
   
   #Make all lower case to reduce error rate
@@ -57,10 +59,15 @@ getTrends = function(query, country = "all", region = "none", date = "all"){
   #Get raw data
   html_results = get_googletrend_raw_data(query, geo, date)
   
-  #Make it a R dataframe
-  results = raw_to_df(html_results)
+  #Chart data
+  chartData = Filter(function(x) grepl("chartData", x), html_results)
+  chartData = suppressWarnings(raw_to_df_chart(chartData))
+  
+  #Map data
+  mapData = Filter(function(x) grepl("gvizGeoMap", x), html_results)
+  mapData = suppressWarnings(raw_to_df_map(mapData))
   
   #Return output
-  return(results)
+  return(list(trend = chartData, country = mapData$country, city = mapData$city))
 }
 

@@ -1,6 +1,6 @@
 get_googletrend_raw_data = function(query, geo, date){
   #Session
-  base_url = "http://www.google.co.uk/trends/fetchComponent?hl=en-US&tz&cmpt=q&content=1&cid=TIMESERIES_GRAPH_0&export=3"
+  base_url = "http://www.google.com/trends/trendsReport?hl=en-US&tz=&content=1"
   
   #Create get request
     #Query  
@@ -13,10 +13,12 @@ get_googletrend_raw_data = function(query, geo, date){
       my_url = paste0(my_url, "&geo=", curlEscape(geo))
   
   #Go to results page
-#   message(paste0("Downloading data from: ",my_url))
-  results = GET(my_url, add_headers("Cookie" = "PREF=Fake_Cookie"))
-  html_results = content(results, "text")
+  main_page = GET(my_url, add_headers("Cookie" = "PREF=Fake_Cookie"))
+  
+  #Get all scripts (where data live)
+  all_scripts = getNodeSet(content(main_page), "//script")
+  all_scripts = vapply(all_scripts, xmlValue, FUN.VALUE = character(1))
   
   #Return raw results
-  return(html_results)
+  return(all_scripts)
 }
