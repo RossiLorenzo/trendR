@@ -11,6 +11,10 @@ date_convert = function(x){
     if(is.na(date) | as.POSIXlt(date, tz = "UTC")$year + 1900 < 2000){
       y = paste("01", x)
       date = as.Date(y, format = "%d %B %Y")
+      if(is.na(date) | as.POSIXlt(date, tz = "UTC")$year + 1900 < 2000){
+        y = gsub(" \\D*[0-9]{1,2},", "", x)
+        date = as.Date(y, format = "%b %d %Y")
+      }
     }
   }
   return(date)

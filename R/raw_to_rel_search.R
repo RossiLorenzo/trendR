@@ -3,6 +3,8 @@ raw_to_rel_search = function(parsed_results){
   related = vapply(related, xmlValue, FUN.VALUE = character(1))
   related = str_trim(gsub("\n", "", related))
   related = gsub(" {2,}", " ", related)
+  if(length(related) == 0)
+    return(NULL)
   related = lapply(1:length(related), function(i){
     my_row = related[i]
     last_string = gsub(".* ", "", my_row)

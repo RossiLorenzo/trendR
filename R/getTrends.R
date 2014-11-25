@@ -5,11 +5,15 @@
 #' 
 #' @param query The keyword to be searched. It will be auto escaped.
 #' 
-#' @param country Country name, i.e: United Kingdom, Italy, Germany, etc. Case INSENSITIVE. Deafult option is the worldwide research.
+#' @param country Country name, i.e: United Kingdom, Italy, Germany, etc. Deafult option is the worldwide search.
 #' 
-#' @param region Region name, i.e: England, Scotland, etc. Case INSENSITIVE. Deafult option is none.
+#' @param region Region name, i.e: England, Scotland, etc. Deafult option is none. It is possible to use only the region name without specifying the related country.
 #' 
 #' @param date The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'
+#' 
+#' @param category The category of the keyword. Default is all. 
+#' 
+#' @note Please note that (except for the query argument) all the other arguments are case INSENSITIVE
 #' 
 #' @return The output is a list. This list contains the trend, the geographical segmentation (countries and cities), the suggested categories for the keyword and the related searches
 #' 
@@ -17,7 +21,7 @@
 #' 
 #' @export
 
-getTrends = function(query, country = "all", region = "none", date = "all"){
+getTrends = function(query, country = "all", region = "none", date = "all", category = "all"){
   #Libraries
   library(httr, quietly = TRUE)
   library(RCurl, quietly = TRUE)
@@ -27,34 +31,14 @@ getTrends = function(query, country = "all", region = "none", date = "all"){
   library(rjson, quietly = TRUE)
   data(Google_Trends_Data)
   
-  #Make all lower case to reduce errors
-  country = tolower(country)
-  region = tolower(region)
-  date = tolower(date)
-  
   #Check that country and region are correct and encode
-  if(country != "all"){
-    right_country = filter(GT_Nations, tolower(name) == country)
-    if(nrow(right_country) == 0)
-      stop("Error: The selected country is not available")
-    if(region != "none"){
-      right_country = filter(right_country, tolower(sub_name) == region)
-      if(nrow(right_country) == 0)
-        stop("Error: The selected region is not available")
-      geo = paste(unique(right_country$id), unique(right_country$sub_id), sep = "-")
-    }else{
-      geo = unique(right_country$id)
-    }
-  }else{
-    geo = "all"
-  }
+  geo = get_geo_code(tolower(country), tolower(region))
   
   #Check that date is correct and encode
-  right_date = filter(GT_Dates, name == date)
-  if(nrow(right_date) == 0)
-    stop("Error: The selected timeframe is not available")
-  else
-    date = right_date$id
+  date = get_date_code(tolower(date))  
+  
+  #Check that category is correct and encode
+  
   
   #Scrape raw data
   html_results = get_googletrend_raw_data(query, geo, date)

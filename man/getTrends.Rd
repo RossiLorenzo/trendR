@@ -3,22 +3,28 @@
 \alias{getTrends}
 \title{Get Trend data from Google}
 \usage{
-getTrends(query, country = "all", region = "none", date = "all")
+getTrends(query, country = "all", region = "none", date = "all",
+  category = "all")
 }
 \arguments{
 \item{query}{The keyword to be searched. It will be auto escaped.}
 
-\item{country}{Country name, i.e: United Kingdom, Italy, Germany, etc. Case INSENSITIVE. Deafult option is the worldwide research.}
+\item{country}{Country name, i.e: United Kingdom, Italy, Germany, etc. Deafult option is the worldwide search.}
 
-\item{region}{Region name, i.e: England, Scotland, etc. Case INSENSITIVE. Deafult option is none.}
+\item{region}{Region name, i.e: England, Scotland, etc. Deafult option is none. It is possible to use only the region name without specifying the related country.}
 
 \item{date}{The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'}
+
+\item{category}{The category of the keyword. Default is all.}
 }
 \value{
 The output is a list. This list contains the trend, the geographical segmentation (countries and cities), the suggested categories for the keyword and the related searches
 }
 \description{
 This function scrapes Google Trends and returns the results nicely formatted in a R dataframe
+}
+\note{
+Please note that (except for the query argument) all the other arguments are case INSENSITIVE
 }
 \examples{
 getTrends(query = "test me", country = "United Kingdom", region = "England", date = "last 30 days")
