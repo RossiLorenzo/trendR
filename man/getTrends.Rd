@@ -4,7 +4,7 @@
 \title{Get Trend data from Google}
 \usage{
 getTrends(query, country = "all", region = "none", date = "all",
-  category = "all")
+  category = "all", sub_category = "none")
 }
 \arguments{
 \item{query}{The keyword to be searched. It will be auto escaped.}
@@ -15,18 +15,26 @@ getTrends(query, country = "all", region = "none", date = "all",
 
 \item{date}{The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'}
 
-\item{category}{The category of the keyword. Default is all.}
+\item{category}{The parent category of the keyword. Default is all. The options are listed in the data GT_Options$Category dataframe}
+
+\item{sub_category}{The child category of the keywrod. Default is none.}
 }
 \value{
 The output is a list. This list contains the trend, the geographical segmentation (countries and cities), the suggested categories for the keyword and the related searches
 }
 \description{
-This function scrapes Google Trends and returns the results nicely formatted in a R dataframe
+This function scrapes Google Trends and returns the results nicely formatted in a R object
 }
 \note{
 Please note that (except for the query argument) all the other arguments are case INSENSITIVE
 }
 \examples{
-getTrends(query = "test me", country = "United Kingdom", region = "England", date = "last 30 days")
+#Search the keyword 'test me' in England for last 30 days
+results = getTrends(query = "test me", region = "England", date = "last 30 days")
+
+#Access all available arguments
+data(Google_Trends_Data)
+#i.e: Check available categories
+unique(GT_Options$Category$name)
 }
 

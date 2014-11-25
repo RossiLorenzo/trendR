@@ -1,4 +1,4 @@
-get_googletrend_raw_data = function(query, geo, date){
+get_googletrend_raw_data = function(query, geo, date, cat){
   #Session
   base_url = "http://www.google.com/trends/trendsReport?hl=en-US&tz=&content=1"
   
@@ -11,6 +11,9 @@ get_googletrend_raw_data = function(query, geo, date){
     #Geo
     if(geo != "all")
       my_url = paste0(my_url, "&geo=", curlEscape(geo))
+    #Category
+    if(cat != "all")
+      my_url = paste0(my_url, "&cat=", curlEscape(cat))
   
   #Go to results page
   main_page = GET(my_url, add_headers("Cookie" = "PREF=Fake_Cookie"))

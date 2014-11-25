@@ -1,1 +1,0 @@
-getTrends(query = "test me", country = "United Kingdom", region = "England", date = "last 30 days")

@@ -1,5 +1,7 @@
 get_geo_code = function(country, region){
   
+  GT_Nations = GT_Options$Nation
+  
   #If not option specified return all
   if(region == "none" & country == "all")
     return("all")

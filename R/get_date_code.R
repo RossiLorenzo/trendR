@@ -1,4 +1,6 @@
 get_date_code = function(date){
+  GT_Dates = GT_Options$Date
+  
   #Get right date
   right_date = filter(GT_Dates, name == date)
   if(nrow(right_date) == 0)

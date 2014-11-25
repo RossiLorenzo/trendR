@@ -1,7 +1,7 @@
 ############################################################## 
 #' Get Trend data from Google
 #'
-#' This function scrapes Google Trends and returns the results nicely formatted in a R dataframe
+#' This function scrapes Google Trends and returns the results nicely formatted in a R object
 #' 
 #' @param query The keyword to be searched. It will be auto escaped.
 #' 
@@ -11,17 +11,27 @@
 #' 
 #' @param date The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'
 #' 
-#' @param category The category of the keyword. Default is all. 
+#' @param category The parent category of the keyword. Default is all. The options are listed in the data GT_Options$Category dataframe 
+#' 
+#' @param sub_category The child category of the keywrod. Default is none.
 #' 
 #' @note Please note that (except for the query argument) all the other arguments are case INSENSITIVE
 #' 
 #' @return The output is a list. This list contains the trend, the geographical segmentation (countries and cities), the suggested categories for the keyword and the related searches
 #' 
-#' @examples getTrends(query = "test me", country = "United Kingdom", region = "England", date = "last 30 days")
+#' @examples 
+#' #Search the keyword 'test me' in England for last 30 days
+#' results = getTrends(query = "test me", region = "England", date = "last 30 days")
+#' 
+#' #Access all available arguments
+#' data(Google_Trends_Data)
+#' #i.e: Check available categories
+#' unique(GT_Options$Category$name)
 #' 
 #' @export
 
-getTrends = function(query, country = "all", region = "none", date = "all", category = "all"){
+getTrends = function(query, country = "all", region = "none", date = "all", 
+                     category = "all", sub_category = "none"){
   #Libraries
   library(httr, quietly = TRUE)
   library(RCurl, quietly = TRUE)
@@ -38,10 +48,10 @@ getTrends = function(query, country = "all", region = "none", date = "all", cate
   date = get_date_code(tolower(date))  
   
   #Check that category is correct and encode
-  
+  cat = get_category_code(tolower(category), tolower(sub_category))
   
   #Scrape raw data
-  html_results = get_googletrend_raw_data(query, geo, date)
+  html_results = get_googletrend_raw_data(query, geo, date, cat)
   parsed_results = content(html_results)
     #Get all scripts (where data live)
   all_scripts = getNodeSet(parsed_results, "//script")
