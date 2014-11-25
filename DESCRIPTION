@@ -9,7 +9,11 @@ Imports:
     RCurl,
     stringr,
     dplyr,
-    httr
+    httr,
+    XML,
+    rjson
+Depends:
+    R (>= 3.0)
 Description: Connects to Google Trends data and download the results obtained.
-    The Google Trend output is then reshaped and saved into a R dataframe
+    The Google Trend output is then reshaped and saved into a R object
 License: Apache License

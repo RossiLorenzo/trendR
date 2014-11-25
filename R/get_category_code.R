@@ -2,11 +2,11 @@ get_category_code = function(category, sub_category){
   GT_Categories = GT_Options$Category
   
   #If not options specified return all
-  if(sub_category == "none" & category == "all")
+  if(sub_category == "all" & category == "all")
     return("all")
   
-  #If sub_category different from none filter by that
-  if(sub_category != "none"){
+  #If sub_category different from all filter by that
+  if(sub_category != "all"){
     my_code = filter(GT_Categories, sub_name == sub_category)
     #Error not available sub_category
     if(nrow(my_code) == 0)

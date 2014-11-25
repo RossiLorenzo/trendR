@@ -3,21 +3,21 @@
 \alias{getTrends}
 \title{Get Trend data from Google}
 \usage{
-getTrends(query, country = "all", region = "none", date = "all",
-  category = "all", sub_category = "none")
+getTrends(query, country = "all", region = "all", date = "all",
+  category = "all", sub_category = "all")
 }
 \arguments{
 \item{query}{The keyword to be searched. It will be auto escaped.}
 
 \item{country}{Country name, i.e: United Kingdom, Italy, Germany, etc. Deafult option is the worldwide search.}
 
-\item{region}{Region name, i.e: England, Scotland, etc. Deafult option is none. It is possible to use only the region name without specifying the related country.}
+\item{region}{Region name, i.e: England, Scotland, etc. Deafult option is all. It is possible to use only the region name without specifying the related country.}
 
 \item{date}{The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'}
 
 \item{category}{The parent category of the keyword. Default is all. The options are listed in the data GT_Options$Category dataframe}
 
-\item{sub_category}{The child category of the keywrod. Default is none.}
+\item{sub_category}{The child category of the keywrod. Default is all.}
 }
 \value{
 The output is a list. This list contains the trend, the geographical segmentation (countries and cities), the suggested categories for the keyword and the related searches

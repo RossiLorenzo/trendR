@@ -7,13 +7,13 @@
 #' 
 #' @param country Country name, i.e: United Kingdom, Italy, Germany, etc. Deafult option is the worldwide search.
 #' 
-#' @param region Region name, i.e: England, Scotland, etc. Deafult option is none. It is possible to use only the region name without specifying the related country.
+#' @param region Region name, i.e: England, Scotland, etc. Deafult option is all. It is possible to use only the region name without specifying the related country.
 #' 
 #' @param date The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'
 #' 
 #' @param category The parent category of the keyword. Default is all. The options are listed in the data GT_Options$Category dataframe 
 #' 
-#' @param sub_category The child category of the keywrod. Default is none.
+#' @param sub_category The child category of the keywrod. Default is all.
 #' 
 #' @note Please note that (except for the query argument) all the other arguments are case INSENSITIVE
 #' 
@@ -30,8 +30,8 @@
 #' 
 #' @export
 
-getTrends = function(query, country = "all", region = "none", date = "all", 
-                     category = "all", sub_category = "none"){
+getTrends = function(query, country = "all", region = "all", date = "all", 
+                     category = "all", sub_category = "all"){
   #Libraries
   library(httr, quietly = TRUE)
   library(RCurl, quietly = TRUE)

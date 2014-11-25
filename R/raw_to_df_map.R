@@ -1,5 +1,11 @@
 raw_to_df_map = function(mapData){
-  mapData = str_split(mapData, "\\[\\[")[[1]]
+  mapData = str_split(mapData, "\\[\\[")
+  if(length(mapData) == 0){
+    warning("Google Trends returns 'Not enough search volume to show geographical information'")
+    return(list(country = NULL, city = NULL))
+  }
+      
+  mapData = mapData[[1]]
   #Sub country specified so only cities
   if(length(mapData) == 2){
     #Cities

@@ -3,11 +3,11 @@ get_geo_code = function(country, region){
   GT_Nations = GT_Options$Nation
   
   #If not option specified return all
-  if(region == "none" & country == "all")
+  if(region == "all" & country == "all")
     return("all")
   
-  #If region different from none filter by that
-  if(region != "none"){
+  #If region different from all filter by that
+  if(region != "all"){
     my_code = filter(GT_Nations, sub_name == region)
     #Error not available region
     if(nrow(my_code) == 0)
