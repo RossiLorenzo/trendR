@@ -4,7 +4,8 @@
 \title{Get data from Google Trends}
 \usage{
 google_trends(query, country = "all", region = "all", date = "all",
-  category = "all", sub_category = "all")
+  fromdate = NULL, todate = NULL, category = "all",
+  sub_category = "all")
 }
 \arguments{
 \item{query}{The keyword to be searched. It will be auto escaped.}

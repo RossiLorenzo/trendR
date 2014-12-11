@@ -11,6 +11,10 @@
 #' 
 #' @param date The time span. Default is all. Other options are: 'last 7 days', 'last 30 days', 'last 90 days', 'last year' or the year number, i.e '2014'
 #' 
+#' @param fromdate If fromdate and todate are both specified the time span will be the custom one. Specifiy the values as strings in the format YYYY-MM-DD.
+#' 
+#' @param todate See fromdate
+#' 
 #' @param category The parent category of the keyword. Default is all. The options are listed in the data GT_Options$Category dataframe 
 #' 
 #' @param sub_category The child category of the keywrod. Default is all.
@@ -30,8 +34,9 @@
 #' 
 #' @export
 
-google_trends = function(query, country = "all", region = "all", date = "all", 
-                     category = "all", sub_category = "all"){
+google_trends = function(query, country = "all", region = "all", 
+                         date = "all", fromdate = NULL, todate = NULL,
+                         category = "all", sub_category = "all"){
   #Libraries
   library(httr, quietly = TRUE)
   library(RCurl, quietly = TRUE)
@@ -45,7 +50,19 @@ google_trends = function(query, country = "all", region = "all", date = "all",
   geo = get_geo_code(tolower(country), tolower(region))
   
   #Check that date is correct and encode
-  date = get_date_code(tolower(date))  
+  if(!is.null(fromdate) | !is.null(todate)){
+    if(is.null(fromdate))
+      stop("Stop date has been specified but not start date")
+    if(is.null(todate))
+      stop("Start date has been specified but not stop date")
+    starting_month = as.POSIXlt(fromdate)$mon + 1
+    starting_year = as.POSIXlt(fromdate)$year + 1900
+    month_diff = as.POSIXlt(todate)$mon - starting_month + 2
+    years_diff = as.POSIXlt(todate)$year + 1900 - starting_year
+    date = paste0(starting_month, "/", starting_year," ", month_diff + 12*years_diff,"m")
+  }
+  else
+    date = get_date_code(tolower(date))  
   
   #Check that category is correct and encode
   cat = get_category_code(tolower(category), tolower(sub_category))
