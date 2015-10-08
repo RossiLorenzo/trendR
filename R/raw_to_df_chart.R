@@ -7,7 +7,7 @@ raw_to_df_chart = function(chartData){
   chartData2 = chartData2[2]
   chartData2 = gsub("\\]\\].*", "", chartData2)
   chartData2 = paste0("[[", chartData2, "]]")
-  chartData2 = gsub(',\"v\":[^)]*)', "", chartData2)
+  chartData2 = gsub('\"v\":[^)]*),', "", chartData2)
   chartData2 = fromJSON(chartData2)
   #Get data
   extr_data = lapply(chartData2, function(x){
