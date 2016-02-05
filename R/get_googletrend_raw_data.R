@@ -24,10 +24,6 @@ get_googletrend_raw_data = function(query, geo, date, cat){
   #Go to results page
   main_page = GET(my_url)
   
-  x = content(main_page)
-  htmlTreeParse(x)
-  str(x, max.level = 1)
-  
   #Return raw results
   return(main_page)
 }
