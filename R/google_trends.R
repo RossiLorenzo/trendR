@@ -69,7 +69,8 @@ google_trends = function(query, country = "all", region = "all",
   
   #Scrape raw data
   html_results = get_googletrend_raw_data(query, geo, date, cat)
-  parsed_results = content(html_results)
+  parsed_results = content(html_results, as = "text")
+  parsed_results = htmlParse(parsed_results)
     #Get all scripts (where data live)
   all_scripts = getNodeSet(parsed_results, "//script")
   all_scripts = vapply(all_scripts, xmlValue, FUN.VALUE = character(1))

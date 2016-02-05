@@ -17,3 +17,4 @@ Depends:
 Description: Connects to Google Trends data and download the results obtained.
     The Google Trend output is then reshaped and saved into a R object
 License: Apache License
+RoxygenNote: 5.0.1

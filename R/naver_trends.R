@@ -31,7 +31,7 @@ naver_trends = function(query){
   
   # Rest of list
   rest_list = list(
-    startDate = "200701",
+    startDate = "201301",
     endDate = "201510")
   
   # Start and end date
