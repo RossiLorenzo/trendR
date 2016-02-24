@@ -25,7 +25,7 @@ get_geo_code = function(country, region){
   
   my_code = GT_Nations %>% 
     filter(name == country) %>%
-    select(id) %>%
+    dplyr:::select(id) %>%
     unique()
   
   return(as.character(my_code))
