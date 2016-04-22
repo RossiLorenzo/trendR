@@ -2,3 +2,4 @@
 
 export(google_trends)
 export(naver_trends)
+export(so_360_trends)
